@@ -11,8 +11,7 @@ class ListAuctionSerializer(ModelSerializer):
 
     class Meta:
         model = Auction
-        fields = ('id', 'item', 'auction_bid_price', 'auction_item_sold',
-                  'auction_default_price', 'auction_status', 'auction_end_time', 'auction_winner')
+        fields = ('id', 'item', 'auction_item_sold', 'auction_default_price', 'auction_status', 'auction_end_time', 'auction_winner')
 
 
 """serializer to create an auction: only owner of the item can create an auction"""
@@ -21,8 +20,7 @@ class ListAuctionSerializer(ModelSerializer):
 class CreateAuctionSerializer(ModelSerializer):
     class Meta:
         model = Auction
-        fields = ('id', 'item', 'auction_bid_price',
-                  'auction_default_price', 'auction_status', 'auction_end_time')
+        fields = ('id', 'item', 'auction_default_price', 'auction_status', 'auction_end_time')
 
     def create(self, validated_data):
         answer, created = Auction.objects.update_or_create(item=validated_data.get('item', None),
