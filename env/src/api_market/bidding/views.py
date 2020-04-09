@@ -25,6 +25,7 @@ class CreateBid(CreateAPIView):
     serializer_class = CreateBiddingSerializer
 
     def create(self, request, *args, **kwargs):
+        print(request.data)
         serializer = self.get_serializer(data=request.data)
         user = request.user
         auction = Auction.objects.get(id=request.data['auction'])
@@ -53,6 +54,8 @@ class CreateBid(CreateAPIView):
                         bid.auction.save()
                         return Response("This Auction is expired. The winner is: " + str(bid.bidding_user),
                                         status=status.HTTP_400_BAD_REQUEST)
+                    else:
+                        return Response("Auction Expired. No Winner.")
                 else:
                     serializer.save(bidding_user=user)
                     return Response(serializer.data, status=status.HTTP_200_OK)
