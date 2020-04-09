@@ -11,7 +11,6 @@ class Auction(models.Model):
     STATUS = [(OPEN, 'OPEN'), (CLOSED, 'CLOSED'), (PENDING, 'PENDING')]
 
     item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None, db_column='item')
-    auction_bid_price = models.DecimalField(max_digits=19, decimal_places=2)
     auction_default_price = models.DecimalField(max_digits=19, decimal_places=2, default=0.00)
     auction_status = models.CharField(max_length=9, choices=STATUS, default=PENDING)
     auction_end_time = models.DateTimeField(default=now, auto_now=False, auto_now_add=False)
